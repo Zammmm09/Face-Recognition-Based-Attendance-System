@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Leaderboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Attendance Leaderboard</h1>
+            <a href="/download_leaderboard" class="btn">Download as Excel</a>
+            <a href="/" class="btn">Back to Home</a>
+        </header>
+        <main>
+            <table id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Student</th>
+                        <th>DCN</th>
+                        <th>JPR</th>
+                        <th>EES</th>
+                        <th>PWP</th>
+                        <th>MIC</th>
+                        <th>Total Present</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in leaderboard %}
+                    <tr class="{{ 'top-row' if loop.index <= 3 else 'bottom-row' if loop.index > loop.length - 3 else '' }}">
+                        <td>{{ student.Rank }}</td>
+                        <td>{{ student.Name }}</td>
+                        <td>{{ student.DCN }}</td>
+                        <td>{{ student.JPR }}</td>
+                        <td>{{ student.EES }}</td>
+                        <td>{{ student.PWP }}</td>
+                        <td>{{ student.MIC }}</td>
+                        <td>{{ student.Total_Present }}</td>
+                        <td>{{ student.Percentage }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

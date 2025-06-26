@@ -1,0 +1,471 @@
+/* General Body Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0f0c29;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    overflow: auto; 
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 90%;
+    max-width: 800px;
+    margin: 2rem auto; 
+    text-align: center;
+}
+
+/* Header Styles */
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+.records h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #d4d4d4;
+}
+
+#attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto; 
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#attendance-table th,
+#attendance-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#attendance-table th {
+    background: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    color: #00ffea; 
+}
+
+#attendance-table tr:hover {
+    background: rgba(255, 255, 255, 0.05); 
+}
+
+#attendance-table td {
+    color: #e0e0e0;
+}
+
+#attendance-table tbody tr td[colspan="3"] {
+    text-align: center;
+    padding: 2rem;
+    color: #d4d4d4;
+    font-style: italic;
+}
+
+
+.video-feed {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; 
+    margin: 0 auto; 
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+}
+
+#video {
+    width: 100%;
+    border-radius: 15px;
+    display: block;
+    margin: 0 auto;
+}
+
+#attendance-status {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #00ffea;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #d4d4d4;
+    text-align: center;
+}
+
+.hero {
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; 
+    margin-top: 2rem;
+}
+.btn {
+    background: linear-gradient(135deg, #00ffea, #00bcd4);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 234, 0.4);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 255, 234, 0.6);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 255, 234, 0.4);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-size: 1.1rem;
+    color: #d4d4d4;
+}
+
+input {
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+button {
+    background: linear-gradient(135deg, #00ffea, #00bcd4);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 255, 234, 0.6);
+}
+
+.attendance-records {
+    margin-top: 2rem;
+}
+
+.attendance-records h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.custom-swal-popup {
+    background: rgba(15, 12, 41, 0.95);
+    color: #e0e0e0; 
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.custom-swal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00ffea; 
+}
+
+.custom-swal-button {
+    background: linear-gradient(135deg, #00ffea, #00bcd4) !important; 
+    color: white !important;
+    font-size: 18px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 15px rgba(0, 255, 234, 0.4);
+}
+
+.custom-swal-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 255, 234, 0.6);
+}
+/* Floating "Add Student" Button */
+.btn-floating {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00ffea, #00bcd4);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 255, 234, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-floating:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 255, 234, 0.6);
+}
+/* Leaderboard Table */
+#leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#leaderboard-table th, #leaderboard-table td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#leaderboard-table th {
+    background: rgba(0, 0, 0, 0.3);
+    color: #00ffea;
+    font-weight: bold;
+}
+
+#leaderboard-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Leaderboard Button Container (Bottom-Left) */
+.leaderboard-btn-container {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+/* Optional: Adjust button size if needed */
+.leaderboard-btn {
+    padding: 0.8rem 1.5rem; /* Slightly smaller than other buttons */
+    font-size: 1rem;
+    border-radius: 25px; /* More rounded */
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple/blue gradient for distinction */
+}
+.leaderboard-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+#studentSelect {
+    background: rgba(0,0,0,0.3);
+    color: white;
+    border: 1px solid #00ffea;
+    padding: 8px;
+    width: 100%;
+    margin: 10px 0;
+}
+/* Low Light Alert */
+.alert {
+    padding: 15px;
+    background: #ff5252;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    animation: pulse 2s infinite;
+}
+
+.hidden { 
+    display: none; 
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+/* Low Light Alert */
+.alert {
+    padding: 15px;
+    background: linear-gradient(135deg, #ff5252, #ff0000);
+    color: white;
+    border-radius: 10px;
+    margin: 15px auto;
+    max-width: 80%;
+    text-align: center;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.alert::before {
+    content: "⚠";
+    font-size: 24px;
+}
+
+.hidden { 
+    display: none; 
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+.top-row {
+    font-weight: bold;
+    color: #fff;
+    background-color: rgba(79, 238, 79, 0);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border-color: rgb(64, 255, 0);
+    border-width: 0.03cm;
+}
+.bottom-row {
+    color: #fff;
+    background-color:#fd464600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border-color: rgba(252, 63, 63, 0);
+    border-width: 0.03cm;
+}
+#leaderboard-table tr:hover {
+    background-color: transparent; /* Prevent background color change */
+    filter: brightness(1.1); /* Add a subtle brightness effect instead */
+    cursor: pointer; /* Optional for a better UI experience */
+}
+
+#leaderboard-table td {
+    color: #ffffff;
+    border-color: black;
+    border-width: 0.03cm;
+    text-shadow: black;
+}
+/* Admin Specific Styles */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.sidebar a:hover {
+    color: #00ffea;
+}
+
+.sidebar a.active {
+    color: #00ffea;
+    font-weight: bold;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.filters {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.status-dropdown {
+    padding: 8px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid #00ffea;
+    font-size: 1rem;
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #00ffea, #00bcd4);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+}
+
+.bulk-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.hidden {
+    display: none;
+}

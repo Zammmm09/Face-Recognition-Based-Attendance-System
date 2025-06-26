@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Attendify</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="container">
+        <header>
+            <h1>Signup</h1>
+        </header>
+        <main>
+            <form id="signupForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Signup</button>
+            </form>
+            <p>Already have an account? <a href="/login">Login here</a>.</p>
+        </main>
+    </div>
+    <script>
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+
+    Swal.fire({
+        title: data.status === "success" ? "Signup Successful!" : "Signup Failed!",
+        text: data.message,
+        icon: data.status === "success" ? "success" : "error",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,  
+        allowEscapeKey: false
+    }).then(() => {
+        if (data.status === "success") {
+            window.location.href = "/login";  
+        }
+    });
+});
+
+        
+    </script>
+</body>
+</html>

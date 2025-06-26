@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Attendify</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="container">
+        <header>
+            <h1>Login</h1>
+        </header>
+        <main>
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/signup">Signup here</a>.</p>
+        </main>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();  // Prevent page refresh
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    // Show SweetAlert2 popup
+    Swal.fire({
+        title: data.status === "success" ? "Login Successful!" : "Login Failed!",
+        text: data.message,
+        icon: data.status === "success" ? "success" : "error",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,  
+        allowEscapeKey: false
+    }).then(() => {
+        if (data.status === "success") {
+            window.location.href = data.redirect;  // Redirect only after clicking OK
+        }
+    });
+});
+
+    </script>
+</body>
+</html>

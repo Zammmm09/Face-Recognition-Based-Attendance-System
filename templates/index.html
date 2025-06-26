@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Attendify</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='icon.jpg') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Attendify</h1>
+        </header>
+        <main>
+            <section class="hero">
+                <h2>Welcome to the Future of Attendance</h2>
+                <div class="buttons">
+                    <button class="btn" onclick="startAttendance('EES')">EES</button>
+                    <button class="btn" onclick="startAttendance('JPR')">JPR</button>
+                    <button class="btn" onclick="startAttendance('DCN')">DCN</button>
+                    <button class="btn" onclick="startAttendance('MIC')">MIC</button>
+                    <button class="btn" onclick="startAttendance('PWP')">PWP</button>
+                </div>
+                <div class="buttons">
+                    
+                    <a href="/login" class="btn">Login</a>
+                    <a href="/signup" class="btn">Signup</a>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        function startAttendance(subject) {
+           
+            window.location.href = `/live?subject=${subject}`;
+        }
+    </script>
+    
+    <div class="leaderboard-btn-container">
+        <a href="/leaderboard" class="btn leaderboard-btn">View Leaderboard</a>
+    </div>
+    <!-- Floating "Add Student" Button -->
+<button id="addStudentBtn" class="btn-floating" title="Add Student">
+    <span style="font-size: 1.5rem;">+</span>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('addStudentBtn').addEventListener('click', () => {
+        Swal.fire({
+            title: 'Add New Student',
+            html: `
+                <input type="text" id="studentName" class="swal2-input" placeholder="Student Name" required>
+                <input type="file" id="studentPhoto" class="swal2-file" accept="image/*" required>
+            `,
+            confirmButtonText: 'Save',
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: () => {
+                const name = document.getElementById('studentName').value;
+                const photo = document.getElementById('studentPhoto').files[0];
+                
+                if (!name || !photo) {
+                    Swal.showValidationMessage('Please fill all fields!');
+                    return false;
+                }
+                
+                return { name, photo };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const formData = new FormData();
+                formData.append('name', result.value.name);
+                formData.append('photo', result.value.photo);
+
+                fetch('/add_student', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire('Success!', data.message, 'success');
+                    } else {
+                        Swal.fire('Error!', data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    Swal.fire('Error!', 'Failed to upload student.', 'error');
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

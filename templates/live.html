@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Live Attendance</h1>
+            <p>Real-time face recognition for attendance.</p>
+        </header>
+        <main>
+            <section class="video-feed">
+                <h2>Camera Feed</h2>
+                <div class="video-container">
+                    <img id="video" src="{{ url_for('video_feed') }}" alt="Live Video Feed">
+                </div>
+                
+                <!-- Low Light Alert -->
+                <div id="light-alert" class="alert hidden">
+                    ⚠ <span id="alert-message">Move to a brighter area for better detection!</span>
+                    <audio id="alert-sound" src="{{ url_for('static', filename='alert.mp3') }}" preload="auto"></audio>
+                </div>
+                
+                <p id="attendance-status">Waiting for detection...</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let alertCooldown = false;
+        
+        setInterval(() => {
+            fetch('/get_light_level')
+                .then(res => res.json())
+                .then(data => {
+                    const alertDiv = document.getElementById('light-alert');
+                    const alertSound = document.getElementById('alert-sound');
+                    
+                    if (data.brightness < 50) {
+                        alertDiv.classList.remove('hidden');
+                        if (!alertCooldown) {
+                            alertSound.play();
+                            alertCooldown = true;
+                            setTimeout(() => { alertCooldown = false }, 10000); // 10 sec cooldown
+                        }
+                    } else {
+                        alertDiv.classList.add('hidden');
+                    }
+                });
+        }, 3000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Attendify</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        #attendance-table {
+            width: 100%;
+        }
+        .status-dropdown {
+            padding: 5px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid #00ffea;
+        }
+        .bulk-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="#" class="active">Manual Attendance</a></li>
+                <li><a href="#">Student Management</a></li>
+                <li><a href="#">Teacher Management</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <h1>Manual Attendance</h1>
+            
+            <div class="filters">
+                <input type="date" id="attendance-date">
+                <select id="class-filter">
+                    <option>All Classes</option>
+                    {% for class in classes %}
+                    <option>{{ class }}</option>
+                    {% endfor %}
+                </select>
+                <button id="search-btn" class="btn">Search</button>
+            </div>
+
+            <table id="attendance-table" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Will be populated by JavaScript -->
+                </tbody>
+            </table>
+
+            <div class="bulk-actions">
+                <button id="mark-all-present" class="btn">Mark All Present</button>
+                <button id="export-btn" class="btn">Export to Excel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load students
+            const studentsResponse = await fetch('/admin/get-students');
+            const students = await studentsResponse.json();
+            
+            const classFilter = document.getElementById('class-filter');
+            const tableBody = document.querySelector('#attendance-table tbody');
+            
+            // Populate table
+            function populateTable() {
+                tableBody.innerHTML = '';
+                students.forEach(student => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${student}</td>
+                        <td>
+                            <select class="status-dropdown" data-student="${student}">
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                                <option value="Late">Late</option>
+                            </select>
+                        </td>
+                        <td><button class="save-btn" data-student="${student}">Save</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            populateTable();
+            
+            // Save button handler
+            document.addEventListener('click', async (e) => {
+                if (e.target.classList.contains('save-btn')) {
+                    const student = e.target.dataset.student;
+                    const classSelected = classFilter.value;
+                    const status = document.querySelector(`select[data-student="${student}"]`).value;
+                    
+                    const response = await fetch('/admin/mark-attendance', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ student, subject: classSelected, status })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        alert('Attendance saved successfully!');
+                    } else {
+                        alert('Error saving attendance');
+                    }
+                }
+            });
+            
+            // Mark all present
+            document.getElementById('mark-all-present').addEventListener('click', () => {
+                document.querySelectorAll('.status-dropdown').forEach(select => {
+                    select.value = 'Present';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

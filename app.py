@@ -13,8 +13,8 @@ from twilio.rest import Client
 
 
 
-account_sid = 'AC9717e23a8b6a334f668fc0728dc6ed66' 
-auth_token = 'cd7d11d79d0153dceca774b6fa759629'   
+account_sid = '' 
+auth_token = ''   
 twilio_sms_number = '+13072125079'                 
 
 client = Client(account_sid, auth_token)
